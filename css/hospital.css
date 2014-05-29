@@ -33,3 +33,9 @@ html, body, #map-canvas {
 input {
   display:inline;   
 }
+.gmnoprint img {
+    max-width: none; 
+}
+img[src*="gstatic.com/"], img[src*="googleapis.com/"] {
+max-width: none;
+}
