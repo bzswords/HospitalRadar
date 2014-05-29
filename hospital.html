@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>Hospital Map POC</title>
+  
+  <link href="css/hospital.css" rel="stylesheet">
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <link href="css/bootstrap-responsive.css" rel="stylesheet">
+  <link href="css/bootstrap-modal.css" rel="stylesheet">
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUwkAc3WjI0a0CpnGShLNqXbk-7iyWbJs&sensor=false&libraries=geometry"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script src="js/bootstrap-modalmanager.js"></script>
+  <script src="js/bootstrap-modal.js"></script>
+  <script src="js/jquery.hospital.js"></script>
+  <script src="js/hospital.js"></script>
+
+  <script type="text/javascript">
+    $(window).load(function(){
+      console.log("HERE")
+      $('#lightboxform').modal({'show' : true, 'backdrop':'static'});
+    });
+  </script>
+
+</head>
+<body>
+
+  <div id="lightboxform" class="modal hide fade" tabindex="-1" data-width="500">
+    <div class="modal-header">
+      <h4>Welcome to Hospital Radar</h4>
+      <p>Track hospitals in a given area</p>
+    </div>
+
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label">Location</label>
+          <div class="controls">
+            <input type="text" id="lightLocation" placeholder="Boston, MA">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Range</label>
+          <div class="controls">
+            <input type="text" id="lightRange" placeholder="In Miles">
+          </div>
+        </div>
+    </div>
+        
+    <div class="modal-footer">
+      <button type="submit" class="btn" onclick="initialSearch();">Search</button></form>
+    </div>
+  </div>
+
+  <div id="header" style="display: none;">
+    <form id="locationform" class="navbar-form navbar-center" role="form">
+      <input id="address" class="form-control" type="text" placeholder="Location">
+      <input id="radius" class="form-control" type="text" placeholder="Range (in miles)">
+      <button id="searchbtn" class="btn btn-success" type="button" onclick="codeAddress();">Search</button>
+    </form>
+  </div>
+  <div id="map-canvas"></div>
+
+</body>
+</html>
+
