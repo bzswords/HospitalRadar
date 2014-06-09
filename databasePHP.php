@@ -1,8 +1,8 @@
 <?php
 // phpinfo(); // uncomment to check if php installed.
 
-$serverName = "Ammar-PC\sqlexpress"; //serverName\instanceName
-$connectionInfo = array( "Database"=>"HospitalSQL", "UID"=>"Ammar1", "PWD"=>"1234");
+$serverName = "Ammar-PC\sqlexpress"; // You might have to replace this with 24.218.207.121\SQLEXPRESS,1433
+$connectionInfo = array( "Database"=>"HospitalSQL", "UID"=>"Ammar1", "PWD"=>"2134");
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
 
 if( $conn ) {
@@ -14,7 +14,7 @@ if( $conn ) {
 
 $params = array(&$_POST['query']);
 
-$tsql = "SELECT TOP 10 *
+$tsql = "SELECT  *
 		FROM [HospitalSQL].[dbo].[dbo_vwHQI_HOSP]";
 
 $options = array("Scrollable" => SQLSRV_CURSOR_KEYSET);
