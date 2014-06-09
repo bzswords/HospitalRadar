@@ -2502,11 +2502,15 @@ function codeAddress() {
       cityCircle.setRadius(radius);
       cityCircle.setMap(map);
       
-      // find all nearby hospitals and place their location on map
-      for (var i = 0; i < hospitals.length; i++) {
-       setTimeout(computeLatLng(center, hospitals[i]), 5000); 
+     // find all nearby hospitals and place their location on map
+	  delay = 0;
+	  function doSetTimeout(i) {	  
+      setTimeout(function() { computeLatLng(center, hospitals[i])}, delay);
+	  delay += 2500;
       }
-
+      for (var i = 0; i < hospitals.length; i++) {
+       doSetTimeout(i);
+      }
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
