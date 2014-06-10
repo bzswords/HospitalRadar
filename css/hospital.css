@@ -3,6 +3,13 @@ html, body, #map-canvas {
   margin: 0px;
   padding: 0px
 }
+.modal-body { 
+    max-height: 350px; 
+	margin-left: 20px;
+    padding: 15px; 
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; 
+ }
 #panel {
   position: absolute;
   bottom: 30px;

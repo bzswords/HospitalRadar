@@ -2483,6 +2483,7 @@ function initialize() {
 function codeAddress() {
   // clear any markers currently on map
   console.log(markersArray)
+  console.log(hospitalsTable)
   clearOverlays();
   // get user input
   var address = document.getElementById('address').value;
@@ -2502,10 +2503,10 @@ function codeAddress() {
       cityCircle.setRadius(radius);
       cityCircle.setMap(map);
       
-     // find all nearby hospitals and place their location on map
+      // find all nearby hospitals and place their location on map
 	  delay = 0;
 	  function doSetTimeout(i) {	  
-      setTimeout(function() { computeLatLng(center, hospitals[i])}, delay);
+      setTimeout(function() {computeLatLng(center, hospitals[i])}, delay);
 	  delay += 2500;
       }
       for (var i = 0; i < hospitals.length; i++) {
@@ -2516,7 +2517,6 @@ function codeAddress() {
     }
   });
 }
-
   
 // computes distance and checks if it is within threshold defined by user
 function determineIfNear(center, pos) {
@@ -2529,6 +2529,8 @@ function determineIfNear(center, pos) {
     return false;
   }
 };
+
+var hospitalsTable = []
   
 // geocodes address of hospital
 function computeLatLng(center, hospital){
@@ -2539,6 +2541,15 @@ function computeLatLng(center, hospital){
       if (near_huh) {
         var marker = createMarker(hloc, hospital)
         markersArray.push(marker);
+		hospitalsTable.push(hospital);
+		document.getElementById("hospitals_info").innerHTML = 
+		document.getElementById("hospitals_info").innerHTML 
+		+ "<tr><td data-toggle='modal' data-id=" + hospital.phone + " data-target='#orderModal'>" + hospital.name + "</td><td>" 
+		+ hospital.address + "</td><td>" 
+		+ hospital.phone + "</td><td>" 
+		+ hospital.type + "</td>"
+		+ "<td><input type='checkbox' value=" + hospital.name + "></td></tr>";
+		console.log(hospitalsTable)
       }
 	} else {
       alert('Geocode was not successful for the following reason: ' + status);
@@ -2553,6 +2564,38 @@ function clearOverlays() {
     markersArray[i].setMap(null);
   }
   markersArray = [];
+}
+
+$(function(){
+    $('#orderModal').modal({
+        keyboard: true,
+        backdrop: "static",
+        show:false,
+
+    }).on('show', function(){ //subscribe to show method
+          var phone = $(event.target).closest('td').data('id'); //get the id from td
+		  var hospital = findHospital(phone.toString())
+		  var name = hospital["Hospital Name"]
+		  var address = hospital.Address1 + ", " + hospital.City + ", " + hospital.State
+		  var type = hospital["Hospital Type"]
+		  var ownership = hospital["Hospital Ownership"]
+		  var emergency = hospital["Emergency Service"]
+        //make your ajax call populate items or what even you need
+        $(this).find('#name').html($('<p> Hospital Name: ' + name + '</p>' ))
+		$(this).find('#address').html($('<p> Address: ' + address  + '</p>'))
+		$(this).find('#phone').html($('<p> Phone: ' + phone + '</p>'))
+		$(this).find('#type').html($('<p> Hospital Type: ' + type + '</p>'))
+		$(this).find('#ownership').html($('<p> Hospital Ownership: ' + ownership + '</p>'))
+		$(this).find('#emergency').html($('<p> Emergency Service: ' + emergency + '</p>'))
+    });
+});
+
+function findHospital(phone) {
+  var hospitals = hospitals_json_raw["Sheet1"];
+  for (var i=0; i < hospitals.length; i++)
+    if (hospitals[i]["Phone Number"] == phone)
+      break;
+	  return hospitals[i];
 }
 
 // generates marker based on hospital location
