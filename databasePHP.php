@@ -24,9 +24,16 @@ if( !$conn ) {
 
 $params = array(&$_POST['query']);
 
+// get user input zip code
+if !(isset($_REQUEST["loc"])){
+    throw new Exception("Must input a zip code"); 
+}
+
+$loc = $_REQUEST["loc"];
+
 $tsql = "SELECT  *
          FROM [HospitalSQL].[dbo].[dbo_vwHQI_HOSP]
-         WHERE [ZIP Code] = " +  test_input($_POST["loc"]);
+         WHERE [ZIP Code] = " +  test_input($loc);
 
 $options = array("Scrollable" => SQLSRV_CURSOR_KEYSET);
 $getProducts = sqlsrv_query($conn, $tsql, $params, $options);
