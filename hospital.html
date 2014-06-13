@@ -18,7 +18,8 @@
   <script src="js/bootstrap-modal.js"></script>
   <script src="js/jquery.hospital.js"></script>
   <script src="js/hospital.js"></script>
-
+  
+  <!-- Do we need this? -->
   <script type="text/javascript">
     $(window).load(function(){
       console.log("HERE")
@@ -28,43 +29,76 @@
 
 </head>
 <body>
+   
+   <!-- This is the lightbox user is prompted with on first arrival -->
+   <div id="lightboxform" class="modal hide fade" tabindex="-1" data-width="500">
 
-  <div id="lightboxform" class="modal hide fade" tabindex="-1" data-width="500">
-    <div class="modal-header">
-      <h4>Welcome to Hospital Radar</h4>
-      <p>Track hospitals in a given area</p>
-    </div>
+      <div class="modal-header">
+         <h4>Welcome to Hospital Radar</h4>
+         <p>Track hospitals in a given area</p>
+      </div>
 
-    <div class="modal-body">
-      <form class="form-horizontal">
-        <div class="control-group">
-          <label class="control-label">Location</label>
-          <div class="controls">
-            <input type="text" id="lightLocation" placeholder="Boston, MA">
-          </div>
-        </div>
-        <div class="control-group">
-          <label class="control-label">Range</label>
-          <div class="controls">
-            <input type="text" id="lightRange" placeholder="In Miles">
-          </div>
-        </div>
+      <div class="modal-body">
+
+         <form class="form-horizontal">
+            <div class="control-group">
+               <label class="control-label">Zip Code</label>
+               <div class="controls">
+                  <input type="text" id="lightLocation" placeholder="12208">
+               </div>
+            </div>
+         </form>
+
+      </div>
+
+      <div class="modal-footer">
+
+         <button type="submit" class="btn" onclick="initialSearch();">Search</button>
+
+      </div>
+
+   </div>
+
+   <!-- Below is standard UI -->
+   <div id="header" style="display: none;">
+
+      <form id="locationform" class="navbar-form navbar-center" role="form">
+
+         <input id="address" class="form-control" type="text" placeholder="Zip Code" name="loc">
+         <button id="searchbtn" class="btn btn-success" type="button" onclick="startSearch();">Search</button>
+
       </form>
-    </div>
-        
-    <div class="modal-footer">
-      <button type="submit" class="btn" onclick="initialSearch();">Search</button>
-    </div>
-  </div>
 
-  <div id="header" style="display: none;">
-    <form id="locationform" class="navbar-form navbar-center" role="form">
-      <input id="address" class="form-control" type="text" placeholder="Location">
-      <input id="radius" class="form-control" type="text" placeholder="Range (in miles)">
-      <button id="searchbtn" class="btn btn-success" type="button" onclick="codeAddress();">Search</button>
-    </form>
-  </div>
-  <div id="map-canvas"></div>
+   </div>
+
+   <div id="map-canvas" style="height: 600px;"></div> <!-- Google Maps -->
+
+   <table class="table table-striped" id="hospitals_info">
+      <tr>
+         <td>Hospital Name</td>
+         <td>Address</td>
+         <td>Phone Number</td>
+         <td>Type</td>
+         <td>Compare</td>
+      </tr>
+   </table>
+   <div id="orderModal" class="modal hide fade" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+      <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+         <h3>Hospital Info</h3>
+      </div>
+      <div class="modal-body">
+         <p id="name"></p>
+         <p id="address"></p>
+         <p id="phone"></p>
+         <p id="type"></p>
+         <p id="ownership"></p>
+         <p id="emergency"></p>
+      </div>
+      <div class="modal-footer">
+         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+      </div>
+   </div>
 
 </body>
 </html>
