@@ -42,9 +42,9 @@
 
          <form class="form-horizontal">
             <div class="control-group">
-               <label class="control-label">Zip Code</label>
+               <label class="control-label">City</label>
                <div class="controls">
-                  <input type="text" id="lightLocation" placeholder="12208">
+                  <input type="text" id="lightLocation" placeholder="Albany">
                </div>
             </div>
          </form>
@@ -64,7 +64,7 @@
 
       <form id="locationform" class="navbar-form navbar-center" role="form">
 
-         <input id="address" class="form-control" type="text" placeholder="Zip Code" name="loc">
+         <input id="address" class="form-control" type="text" placeholder="City" name="city">
          <button id="searchbtn" class="btn btn-success" type="button" onclick="startSearch();">Search</button>
 
       </form>
@@ -72,16 +72,17 @@
    </div>
 
    <div id="map-canvas" style="height: 600px;"></div> <!-- Google Maps -->
-
+   <div id="hospitals_table">
    <table class="table table-striped" id="hospitals_info">
       <tr>
          <td>Hospital Name</td>
          <td>Address</td>
          <td>Phone Number</td>
          <td>Type</td>
-         <td>Compare</td>
+         <td id="compare_btn" class='btn' onclick="openWindow()">Compare</td>
       </tr>
    </table>
+   </div>
    <div id="orderModal" class="modal hide fade" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
       <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
